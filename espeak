@@ -1,0 +1,19 @@
+import subprocess
+
+def execute_unix(inputcommand):
+   p = subprocess.Popen(inputcommand, stdout=subprocess.PIPE, shell=True)
+   (output, err) = p.communicate()
+   return output
+
+def speakthistext(txt):   
+	# write out to wav file 
+	b = 'espeak -w temp.wav "%s" 2>>/dev/null' % txt  
+
+	# speak aloud
+	c = 'espeak -ven+m1 -k1 -s150 --punct="<characters>" "%s" 2>>/dev/null' % txt #speak aloud
+
+	execute_unix(b) 
+	execute_unix(c) 
+
+
+speakthistext("Hello Brian, how are you doing?")
